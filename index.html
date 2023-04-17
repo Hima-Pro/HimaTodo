@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HimaTodo Web App</title>
+        <meta name="description" content="HimaTodo is a web app to manage to do lists in the browser made by Hima-Pro." />
+        <meta name="author" content="Hima-Pro" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="keywords" content="HimaTodo, Hima-Pro, To Do, Todo, To Do List, Todo List" />
+
+        <meta property="og:title" content="HimaTodo Web App" />
+        <meta property="og:description" content="HimaTodo is a web app to manage to do lists in the browser made by Hima-Pro." />
+        <meta property="og:url" content="https://hima-pro.github.io/HimaTodo/" />
+        <meta property="og:image" content="https://hima-pro.github.io/HimaTodo/favicon.ico" />
+
+        <link rel="apple-touch-icon-precomposed" href="assets/images/logo.svg" />
+        <link rel="apple-touch-startup-image" href="assets/images/logo.svg" />
+        <link rel="apple-touch-icon" href="favicon.ico" />
+        <link rel="shortcut icon" href="favicon.ico" />
+
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link rel="manifest" href="assets/manifest.json" />
+        <link rel="stylesheet" href="https://bit.ly/3goJURh">
+        <script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.js");
+            }
+        </script>
+    </head>
+    <body>
+        <center class="container">
+            <header>
+                <h1 class="logo">
+                    <img height="50px" src="assets/images/logo.svg" alt="HimaTodo" />
+                    <span> <span class="text-primary">Hima</span>Todo </span>
+                </h1>
+                <div>
+                    <button onclick="themeManager.switch()" title="Switch theme"><i class="fas fa-moon-over-sun"></i></button>
+                    <button onclick="switchView(this)" title="Manage Tags"><i class="fas fa-tags"></i></button>
+                </div>
+            </header>
+            <section id="main">
+                <input id="name" placeholder="Todo name" />
+                <br />
+                  <textarea id="content" placeholder="Todo content"></textarea>
+                  <br />
+                  <button onclick="todoManager.add()">Add</button>
+                </section>
+                <section id="manage">
+                <input id="tag" placeholder="Tag name" />
+                <br />
+                <button onclick="tagManager.add()">Add</button>
+                <hr />
+                <div id="tag-list">
+                    <button onclick="tagManager.getAll()">Get Tags</button>
+                </div>
+            </section>
+        </center>
+        <center class="container">
+            <select id="tag-selector" title="Select a tag"></select>
+            <br />
+            <div id="todo-list">
+              <button onclick="todoManager.getAll()">Get Todos</button>
+            </div>
+        </center>
+        <center>
+            <footer>
+                <p>Made with <i class="fas fa-heart"></i> by <a target="_blank" href="https://hima-pro.github.io/Hima-Pro">Hima-Pro</a></p>
+            </footer>
+        </center>
+        <script src="assets/js/idb.js"></script>
+        <script src="assets/js/helpers.js"></script>
+        <script src="assets/js/script.js"></script>
+    </body>
+</html>

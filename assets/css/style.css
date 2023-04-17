@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background: var(--primary);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    font-family: Sans-Serif;
+    color: var(--color-accent);
+}
+
+.container {
+    background: var(--secondary);
+    box-shadow: 0 3px 10px 0 var(--shadow);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container header .logo {
+    height: 50px;
+    line-height: 40px;
+    display: flex;
+    color: var(--font);
+    font-size: 35px;
+    align-items: center;
+}
+
+.container header .logo .text-primary {
+    margin-left: 10px;
+    color: var(--color-accent);
+}
+
+.container header button {
+    min-width: 40px !important;
+}
+
+.container input,
+.container textarea,
+.container button,
+.container select {
+    height: 40px;
+    max-height: 300px;
+    max-width: 100%;
+    min-width: 100%;
+    background: var(--primary);
+    box-shadow: 0 0 2px 0 var(--shadow);
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 20px;
+    margin: 5px 0;
+    border: 0;
+    color: var(--color-accent);
+}
+.container input:focus,
+.container select:focus,
+.container textarea:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px var(--color-accent);
+}
+.container button {
+    background: var(--color-accent);
+    color: #fff;
+}
+.container button:active {
+    background: var(--primary);
+    color: var(--color-accent);
+}
+.container textarea {
+    min-height: 200px;
+}
+
+#todo-list details {
+    background: var(--primary);
+    color: var(--font);
+    box-shadow: 0 2px 5px 0 var(--shadow);
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+    margin: 10px 0;
+}
+#todo-list details summary {
+    box-shadow: 0 0.75px 0 0 var(--shadow);
+    padding: 5px 5px 5px 10px;
+    height: 50px;
+    line-height: 40px;
+}
+#todo-list details summary button {
+    min-width: 40px !important;
+    margin: 0;
+    float: right;
+}
+#todo-list details p {
+    padding: 10px;
+    margin: 0;
+}
+#todo-list details p:before {
+    content: "# ";
+    font-size: 25px;
+}
+
+#tag-list span {
+    background: var(--primary);
+    color: var(--font);
+    box-shadow: 0 2px 5px 0 var(--shadow);
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+    margin: 10px 0;
+    padding: 0 5px 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#tag-list span button {
+    min-width: 40px !important;
+    float: right;
+}
+
+footer {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--font);
+    font-size: 12px;
+}
+footer i {
+    color: red;
+}
+footer a {
+    color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+    html, body {
+        display: block;
+        background: var(--secondary);
+    }
+    .container {
+        box-shadow: none;
+        width: 100%;
+        max-height: 100%;
+        padding: 0 20px;
+        margin: 0;
+    }
+}
+@media (max-height: 600px) {
+    html, body {
+        background: var(--secondary);
+        display: block;
+    }
+    .container {
+        box-shadow: none;
+        width: 100%;    
+        max-width: 100%;
+        max-height: 100%;
+        padding: 0 20px;
+        margin: 0;
+    }
+}

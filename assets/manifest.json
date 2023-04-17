@@ -1,0 +1,37 @@
+{
+  "name": "HimaTodo",
+  "short_name": "HimaTodo",
+  "start_url": "../index.html?installed=true",
+  "scope": "../",
+  "id": "../",
+  "display": "standalone",
+  "theme_color": "#0099ff",
+  "background_color": "#ffffff",
+  "description": "HimaTodo is a web app to manage to do lists in the browser made by Hima-Pro.",
+  "icons": [
+    {
+      "src": "images/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
