@@ -32,9 +32,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 20px 0;
 }
 
 .container header .logo {
+    margin: 0;
     height: 50px;
     line-height: 40px;
     display: flex;
@@ -48,8 +50,17 @@ body {
     color: var(--color-accent);
 }
 
+
 .container header button {
     min-width: 40px !important;
+    background: var(--secondary);
+    color: var(--color-accent);
+}
+
+.container header button:hover,
+.active {
+    background: var(--color-accent) !important;
+    color: #ffffff !important;
 }
 
 .container input,
@@ -108,11 +119,11 @@ body {
     margin: 0;
     float: right;
 }
-#todo-list details p {
+#todo-list details pre {
     padding: 10px;
     margin: 0;
 }
-#todo-list details p:before {
+#todo-list details pre:before {
     content: "# ";
     font-size: 25px;
 }
@@ -135,6 +146,12 @@ body {
     float: right;
 }
 
+img.empty {
+    width: 100%;
+    max-width: 350px;
+    margin-top: 20px;
+}
+
 footer {
     position: relative;
     z-index: 1;
@@ -149,32 +166,4 @@ footer i {
 }
 footer a {
     color: var(--color-accent);
-}
-
-@media (max-width: 600px) {
-    html, body {
-        display: block;
-        background: var(--secondary);
-    }
-    .container {
-        box-shadow: none;
-        width: 100%;
-        max-height: 100%;
-        padding: 0 20px;
-        margin: 0;
-    }
-}
-@media (max-height: 600px) {
-    html, body {
-        background: var(--secondary);
-        display: block;
-    }
-    .container {
-        box-shadow: none;
-        width: 100%;    
-        max-width: 100%;
-        max-height: 100%;
-        padding: 0 20px;
-        margin: 0;
-    }
 }

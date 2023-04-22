@@ -9,13 +9,18 @@ class TodoManager {
                 tag: this.config.tag.value,
                 content: this.config.content.value,
             };
-            this.todos.push(data);
-            this.db.getStore("todos").then((store) => {
-                store.add(data);
-            });
-            this.config.content.value = "";
-            this.config.name.value = "";
-            this.render();
+            if (data.name == "") {
+                alert('todo name can\'t be empty !');
+            } else {
+                this.todos.push(data);
+                this.db.getStore("todos").then((store) => {
+                    store.add(data);
+                });
+                this.config.content.value = "";
+                this.config.name.value = "";
+                this.render();
+                switchView("home");
+            }
         };
         this.del = (e) => {
             this.todos = this.todos.filter((obj) => obj.name != e);
@@ -37,13 +42,13 @@ class TodoManager {
             }
             this.config.list.innerHTML = "";
             if(list.length == 0) {
-                this.config.list.innerHTML = "<p>No todos yet !</p>";
+                this.config.list.innerHTML = "<img class='empty' src='assets/images/empty.png'><p>No todos yet !</p>";
             }
             list.forEach((todo) => {
                 var details = document.createElement("details");
                 var summary = document.createElement("summary");
                 var button = document.createElement("button");
-                var p = document.createElement("p");
+                var p = document.createElement("pre");
                 summary.innerHTML = todo.name + (todo.tag != "All" ? ` <kbd title="tag">#${todo.tag}</kbd>` : "");
                 button.classList = "fa-solid fa-trash";
                 button.onclick = () => this.del(todo.name);
@@ -63,17 +68,30 @@ class TagManager {
         this.tags = [];
         this.db = db;
         this.db.getStore("tags").then((store) => {
-            store.getAll().onsuccess = (e) => {
-                var res = e.target.result[0];
+            store.get("tags").onsuccess = (e) => {
+                var res = e.target.result;
                 this.tags = res ? res.content : [];
                 this.render(["All"].concat(this.tags));
             };
+            store.get("current").onsuccess = (e) => {
+                var res = e.target.result;
+                if(res) this.config.selector.value = this.tags.includes(res.content) ? res.content : "All";
+                this.config.todoManager.render();
+            };
+
         });
         this.add = () => {
-            let tag = this.config.tag.value;
-            if (!this.tags.includes(tag)) {
-                this.tags.push(tag);
-                this.update();
+            let tag = this.config.tag;
+            if (tag.value == "") {
+                alert('tag name can\'t be empty !');
+            } else {
+                if (!["All"].concat(this.tags).includes(tag.value)) {
+                    this.tags.push(tag.value);
+                    tag.value = "";
+                    this.update();
+                } else {
+                    alert("tag already exists !");
+                }
             }
         };
         this.del = (tag) => {
@@ -92,7 +110,7 @@ class TagManager {
             this.config.list.innerHTML = "";
             this.config.selector.innerHTML = "";
             if(tags.length == 1) {
-                this.config.list.innerHTML = "<p>No tags yet !</p>";
+                this.config.list.innerHTML = "<img class='empty' src='assets/images/empty.png'><p>No tags yet !</p>";
             }
             tags.forEach((tag) => {
                 var option = document.createElement("option");
@@ -112,9 +130,9 @@ class TagManager {
 }
 
 class ThemeManager {
-    constructor(themes) {
-        this.themes = themes;
-        this.theme = localStorage.getItem("theme") || "light";
+    constructor(config) {
+        this.themes = config.themes;
+        this.theme = localStorage.getItem("theme") || config.theme;
         this.switch = () => {
             if (this.theme == "light") {
                 localStorage.setItem("theme", "dark");
@@ -145,20 +163,19 @@ class ThemeManager {
     }
 }
 
-function switchView (switcher) {
-    let main = document.querySelector("#main");
-    let manage = document.querySelector("#manage");
-    if (manage.style.display == "none") {
-        switcher.innerHTML = '<i class="fas fa-home"></i>';
-        switcher.title = "Main";
-        main.style.display = "none";
-        manage.style.display = "block";
-    } else {
-        switcher.innerHTML = '<i class="fas fa-tags"></i>';
-        switcher.title = "Manage Tags";
-        main.style.display = "block";
-        manage.style.display = "none";
-    }
+function switchView (name="home") {
+    let views = document.querySelectorAll("center.container > section");
+    let targetView = document.querySelector("center.container > section." + name);
+    let tabs = document.querySelectorAll("#nav > .tab");
+    let targetTab = document.querySelector("#nav > .tab." + name);
+    views.forEach((view) => {
+        view.style.display = "none";
+    });
+    targetView.style.display = "block";
+    tabs.forEach((tab) => {
+        tab.classList.remove("active");
+    });
+    targetTab.classList.add("active");
 }
 
 // on CTRL + K focus config.name and on CTRL + L focus config.content

@@ -15,13 +15,13 @@
         <meta property="og:url" content="https://hima-pro.github.io/HimaTodo/" />
         <meta property="og:image" content="https://hima-pro.github.io/HimaTodo/favicon.ico" />
 
-        <link rel="apple-touch-icon-precomposed" href="assets/images/logo.svg" />
         <link rel="apple-touch-startup-image" href="assets/images/logo.svg" />
         <link rel="apple-touch-icon" href="favicon.ico" />
         <link rel="shortcut icon" href="favicon.ico" />
 
-        <link rel="stylesheet" href="assets/css/style.css" />
         <link rel="manifest" href="assets/manifest.json" />
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link rel="stylesheet" href="assets/css/small.css" media="(max-width: 600px)" />
         <link rel="stylesheet" href="https://bit.ly/3goJURh">
         <script>
             if ("serviceWorker" in navigator) {
@@ -36,34 +36,32 @@
                     <img height="50px" src="assets/images/logo.svg" alt="HimaTodo" />
                     <span> <span class="text-primary">Hima</span>Todo </span>
                 </h1>
-                <div>
-                    <button onclick="themeManager.switch()" title="Switch theme"><i class="fas fa-moon-over-sun"></i></button>
-                    <button onclick="switchView(this)" title="Manage Tags"><i class="fas fa-tags"></i></button>
+                <div id="nav">
+                    <button class="tab home" onclick="switchView('home')" title="Home"><i class="fas fa-home"></i></button>
+                    <button class="tab tags" onclick="switchView('tags')" title="Manage Tags"><i class="fas fa-tags"></i></button>
+                    <button class="tab plus" onclick="switchView('plus')" title="Add new todo"><i class="fas fa-plus"></i></button>
+                    <button class="theme" onclick="themeManager.switch()" title="Switch theme"><i class="fas fa-moon-over-sun"></i></button>
                 </div>
             </header>
-            <section id="main">
+            <select id="tag-selector" title="Select a tag"></select>
+            <section class="plus">
                 <input id="name" placeholder="Todo name" />
                 <br />
                   <textarea id="content" placeholder="Todo content"></textarea>
                   <br />
                   <button onclick="todoManager.add()">Add</button>
-                </section>
-                <section id="manage">
+            </section>
+            <section class="tags">
                 <input id="tag" placeholder="Tag name" />
                 <br />
                 <button onclick="tagManager.add()">Add</button>
-                <hr />
                 <div id="tag-list">
                     <button onclick="tagManager.getAll()">Get Tags</button>
                 </div>
             </section>
-        </center>
-        <center class="container">
-            <select id="tag-selector" title="Select a tag"></select>
-            <br />
-            <div id="todo-list">
-              <button onclick="todoManager.getAll()">Get Todos</button>
-            </div>
+            <section id="todo-list" class="home">
+                <button onclick="todoManager.getAll()">Get Todos</button>
+            </section>
         </center>
         <center>
             <footer>
