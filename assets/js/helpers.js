@@ -7,6 +7,7 @@ class TodoManager {
             let data = {
                 name: this.config.name.value,
                 tag: this.config.tag.value,
+                done: false,
                 content: this.config.content.value,
             };
             if (data.name == "") {
@@ -44,20 +45,39 @@ class TodoManager {
             if(list.length == 0) {
                 this.config.list.innerHTML = "<img class='empty' src='assets/images/empty.png'><p>No todos yet !</p>";
             }
+            let done = document.createElement("div");
+            let undone = document.createElement("div");
             list.forEach((todo) => {
                 var details = document.createElement("details");
                 var summary = document.createElement("summary");
+                var checkbox = document.createElement("input");
+                var name = document.createElement("span");
                 var button = document.createElement("button");
                 var p = document.createElement("pre");
-                summary.innerHTML = todo.name + (todo.tag != "All" ? ` <kbd title="tag">#${todo.tag}</kbd>` : "");
-                button.classList = "fa-solid fa-trash";
+                checkbox.type = "checkbox";
+                checkbox.checked = todo.done;
+                checkbox.onchange = (e) => {
+                    todo.done = e.target.checked;
+                    this.db.getStore("todos").then((store) => store.put(todo));
+                    this.render();
+                };
+                name.innerHTML = todo.name + (todo.tag != "All" ? ` <kbd title="tag">#${todo.tag}</kbd>` : "");
+                summary.appendChild(checkbox);
+                summary.appendChild(name);
+                button.classList = "fas fa-trash";
                 button.onclick = () => this.del(todo.name);
                 p.innerHTML = todo.content;
                 summary.appendChild(button);
                 details.appendChild(summary);
                 details.appendChild(p);
-                this.config.list.appendChild(details);
+                if (todo.done) {
+                    done.appendChild(details);
+                } else {
+                    undone.appendChild(details);
+                }
             });
+            this.config.list.appendChild(undone);
+            this.config.list.appendChild(done);
         };
     }
 }
@@ -118,7 +138,7 @@ class TagManager {
                 var button = document.createElement("button");
                 option.innerHTML = tag;
                 option.value = tag;
-                button.classList = "fa-solid fa-trash";
+                button.classList = "fas fa-trash";
                 button.onclick = () => this.del(tag);
                 span.innerHTML = tag;
                 span.appendChild(button);
